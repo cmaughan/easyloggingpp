@@ -2118,6 +2118,11 @@ void DefaultLogDispatchCallback::dispatch(base::type::string_t&& logLine) {
       if (ELPP->hasFlag(LoggingFlag::ColoredTerminalOutput))
         m_data->logMessage()->logger()->logBuilder()->convertToColoredOutput(&logLine, m_data->logMessage()->level());
       ELPP_COUT << ELPP_COUT_LINE(logLine);
+#if (_MSC_VER)
+#ifdef _DEBUG
+OutputDebugStringA(logLine.c_str());
+#endif
+#endif
     }
   }
 #if defined(ELPP_SYSLOG)
